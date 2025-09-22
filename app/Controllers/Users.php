@@ -25,29 +25,27 @@ class Users extends BaseController
         $password = $this->request->getPost('password') ?? 'nccs@sharjeel';
 
         // 1) Validate (uses rules from the model)
-        $data = [
+        $userData = [
             'name'     => $name,
             'email'    => $email,
             'password' => $password, // raw here—will hash next line
         ];
-        if (!$userModel->validate($data)) {
+        if (!$userModel->validate($userData)) {
             $error = true;
             $message = 'Operation Failed!';
             $data = json_encode($userModel->errors());
         }
         // 2) Hash the password before insert
-        $data['password'] = password_hash($password, PASSWORD_BCRYPT);
-die('haris1');
+        $userData['password'] = password_hash($password, PASSWORD_BCRYPT);
         // 3) Insert
-        $userId = $userModel->insert($data);
-die('haris');
+        $userId = $userModel->insert($userData);
         if ($userId === false) {
             $error = true;
             $message = 'Operation Failed!';
             $data = json_encode($userModel->errors());
         }
-        $payload = [ 'error'=>$error,'message'=>$message,'data'=>$data];
-        die('haris1');
-        return redirect()->to('/login')->with('response', $payload);
+        $response = [ 'error'=>$error,'message'=>$message,'data'=>$data];
+        // return redirect()->to('/login')->with('response', $payload);
+        return view('login', ['response' => $response]);
     }
 }
