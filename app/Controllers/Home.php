@@ -4,13 +4,13 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        // return view('welcome_message');
-        // return view('login');
-        // return view('plp');
-        // return view('antField');
-        // return view('antField2');
-        return view('antField3');
+        // Simple home page that redirects to admin
+        $data = [
+            'title' => 'Welcome'
+        ];
+        
+        return view('welcome', $data);
     }
 }
