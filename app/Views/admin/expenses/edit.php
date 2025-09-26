@@ -27,7 +27,7 @@
                 <?= form_open('admin/expenses/update/' . $expense['id'], ['class' => 'needs-validation', 'novalidate' => true, 'method' => 'post']) ?>
                 
                     <!-- Hidden method field for PUT request -->
-                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_method" value="post">
                     
                     <!-- Expense Info -->
                     <div class="alert alert-info mb-4">
