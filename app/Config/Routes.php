@@ -8,16 +8,16 @@ use CodeIgniter\Router\RouteCollection;
 $routes->group('admin', function($routes)
 {
     // Route for the home page
-    $routes->get('home', 'Admin\HomeController::index');
+    $routes->get('home', 'Admin\Home::index');
 
     // Route for the login page
-    $routes->get('login', 'Admin\LoginController::index');
+    $routes->get('login', 'Admin\Login::index');
 
     // Route for handling login POST request
-    $routes->post('login', 'Admin\LoginController::login');
+    $routes->post('submit', 'Admin\Login::submit');
 
     // Route for logout
-    $routes->get('logout', 'Admin\LoginController::logout');
+    $routes->get('logout', 'Admin\Login::logout');
 });
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Users::create');

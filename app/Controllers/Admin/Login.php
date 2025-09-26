@@ -4,11 +4,13 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\UserModel;
 
 class Login extends BaseController
 {
    public function __construct()
     {
+        /*
         // Load session library
         $this->session = \Config\Services::session();
         // Check if the user is already logged in
@@ -16,13 +18,43 @@ class Login extends BaseController
             // Redirect to admin/home if logged in
             return redirect()->to('/admin/home');
         }
+        */
     }
 
-   
+   public function index(){
+        return view('admin/login');
+   }
+   public function submit()
+    {
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+        // Load UserModel
+        $userModel = new UserModel();
+        // Check if the user exists
+        $user = $userModel->where('email', $email)->first();
+       
+        if ($user) {
+            // Verify password using password_hash() and password_verify()
+            if (password_verify($password, $user['password'])) {
+                die('1234');
+                // Password is correct, store user data in session
+                session()->set('user_id', $user['id']);
+                session()->set('isAdminLogin', true);
+                session()->set('user_name', $user['name']);
+                return redirect()->to('/dashboard');
+            } else {
+                return redirect()->back()->with('error', 'Invalid password');
+            }
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
+    }
 
     public function login()
     {
+        /*
         return view('admin/login');
+        
         // Dummy login logic (You should replace this with your actual login validation)
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
@@ -38,6 +70,8 @@ class Login extends BaseController
             // Redirect to login page with error
             return redirect()->to('/admin/login')->with('error', 'Invalid login credentials.');
         }
+        */
+
     }
 
     public function logout()

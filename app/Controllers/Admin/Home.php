@@ -10,11 +10,13 @@ class Home extends BaseController
     public function __construct()
     {
         // Load session library
+        /*
         $this->session = \Config\Services::session();
         if(!$this->session->get('is_logged_in') && !$this->session->get('user')=='admin'){
             return redirect()->to('/admin/login');
             
         }
+        */
     }
 
     public function home()
